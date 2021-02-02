@@ -20,7 +20,7 @@ print(type(sorted(dict.items(Counter(all_sequences)))))  # out: list
 #     print(value)
     # gibt abwechselnd Buchstabe und Zahl -> wie erwartet
 
-with open("../results/mmaripaludis_ordered.csv", "w") as output:
+with open("../results/csv_mmaripaludis_ordered.csv", "w") as output:
     csv_writer = csv.DictWriter(output, fieldnames=["aa", "count"], delimiter=",")
     csv_writer.writeheader()
     for key, value in ordered_dict.items():
