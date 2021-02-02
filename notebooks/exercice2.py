@@ -2,8 +2,8 @@ import csv
 from collections import Counter, OrderedDict
 from matplotlib import pyplot as plt
 
-
-with open("../data/uniprot-filtered-organism__Homo+sapiens.fasta") as fastafile:
+dataset = "../data/uniprot-filtered-organism__Mus+musculus.fasta"
+with open(dataset) as fastafile:
     all_sequences = ""
     for row in fastafile:
         if not row[0] == ">":
@@ -20,10 +20,10 @@ print(type(sorted(dict.items(Counter(all_sequences)))))  # out: list
 #     print(value)
     # gibt abwechselnd Buchstabe und Zahl -> wie erwartet
 
-with open("../results/human.csv", "w") as output:
+with open("../results/mouse_ordered.csv", "w") as output:
     csv_writer = csv.DictWriter(output, fieldnames=["aa", "count"], delimiter=",")
     csv_writer.writeheader()
-    for key, value in counter_dict.items():
+    for key, value in ordered_dict.items():
         csv_writer.writerow({'aa': key, 'count': value})
 
 as_names = []   # geht auch einfach als list(counter_dict.keys())
