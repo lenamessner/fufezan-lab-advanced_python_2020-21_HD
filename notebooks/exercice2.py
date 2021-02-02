@@ -36,3 +36,8 @@ plt.xlabel("amino acid")
 plt.title("Histogram of amino acids in Methanococcus maripaludis")
 # plt.show()
 plt.savefig("../results/hist_mmaripaludis_messner.pdf")
+
+# with open("../test.csv", "w") as output:
+#     aap_writer = csv.DictWriter(output, fieldnames=["Name", "3-letter code"], extrasaction="ignore")
+#     aap_writer.writeheader()
+#     aap_writer.writerow({"Name": "Alanine", "3-letter code": "Ala", "1-letter code": "A"})
