@@ -3,7 +3,7 @@ from collections import Counter
 from matplotlib import pyplot as plt
 
 
-with open("../data/uniprot-archae+AND+reviewed_yes+AND+Methanococcus+maripaludis.fasta") as fastafile:
+with open("../data/uniprot-filtered-organism__Homo+sapiens.fasta") as fastafile:
     all_sequences = ""
     for row in fastafile:
         if not row[0] == ">":
@@ -16,7 +16,7 @@ counter_dict = dict(Counter(all_sequences))
 #     print(value)
     # gibt abwechselnd Buchstabe und Zahl -> wie erwartet
 
-with open("../human.csv", "w") as output:
+with open("../results/human.csv", "w") as output:
     csv_writer = csv.DictWriter(output, fieldnames=["aa", "count"], delimiter=",")
     csv_writer.writeheader()
     for key, value in counter_dict.items():
@@ -36,6 +36,6 @@ print(as_count)
 plt.bar(as_names, as_count, color='darkred')
 plt.ylabel("counts")
 plt.xlabel("amino acid")
-plt.title("Histogram of amino acids in Methanococcus maripaludis")
+plt.title("Histogram of amino acids in Homo sapiens")
 # plt.show()
-plt.savefig("../results/hist_mmaripaludis_messner.pdf")
+plt.savefig("../results/hist_human_messner.pdf")
