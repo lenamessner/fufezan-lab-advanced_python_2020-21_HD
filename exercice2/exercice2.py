@@ -20,7 +20,7 @@ print(type(sorted(dict.items(Counter(all_sequences)))))  # out: list
 #     print(value)
     # gibt abwechselnd Buchstabe und Zahl -> wie erwartet
 
-with open("../results/csv_mmaripaludis_ordered.csv", "w") as output:
+with open("results_exercice2/csv_mmaripaludis_ordered.csv", "w") as output:
     csv_writer = csv.DictWriter(output, fieldnames=["aa", "count"], delimiter=",")
     csv_writer.writeheader()
     for key, value in ordered_dict.items():
@@ -42,4 +42,4 @@ plt.ylabel("counts")
 plt.xlabel("amino acid")
 plt.title("Histogram of amino acids in Homo sapiens")
 # plt.show()
-# plt.savefig("../results/hist_human_messner_ordered.pdf")
+# plt.savefig("../results_exercice2/hist_human_messner_ordered.pdf")
