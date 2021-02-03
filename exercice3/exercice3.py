@@ -68,7 +68,7 @@ def plot_hydropathy(hydropathy_list=None, xvalues=None, title="", xtitle=""):
 
 
 # hydropathy list based on sliding window (average h value in window, length as arg)
-def give_sliding_hydropathy_value(pure_sequence="", mapping_dict=None, window_size=int):
+def give_sliding_hydropathy_value(pure_sequence="", mapping_dict=None, window_size=0):
     if mapping_dict is None:
         mapping_dict={}
     average_hydropathy_values = []
