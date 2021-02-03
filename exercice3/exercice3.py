@@ -3,7 +3,9 @@ import plotly.graph_objects as go
 
 
 # return hydropathy values according to sequence
-def give_hydropathy_value(pure_sequence="", mapping_dict={}):
+def give_hydropathy_value(pure_sequence="", mapping_dict=None):
+    if mapping_dict is None:
+        mapping_dict={}
     hydropathy_values = []
     for aa in pure_sequence[:]:
         hydropathy_values.append(mapping_dict[str(aa)])
@@ -11,7 +13,11 @@ def give_hydropathy_value(pure_sequence="", mapping_dict={}):
 
 
 # plot hydropathy list
-def plot_hydropathy(hydropathy_list=[], xvalues=[], title="", xtitle=""):
+def plot_hydropathy(hydropathy_list=None, xvalues=None, title="", xtitle=""):
+    if hydropathy_list is None:
+        hydropathy_list = []
+    if xvalues is None:
+        xvalues = []
     data = [
         go.Bar(
             x=xvalues,
@@ -62,7 +68,9 @@ def plot_hydropathy(hydropathy_list=[], xvalues=[], title="", xtitle=""):
 
 
 # hydropathy list based on sliding window (average h value in window, length as arg)
-def give_sliding_hydropathy_value(pure_sequence="", mapping_dict={}, window_size=int):
+def give_sliding_hydropathy_value(pure_sequence="", mapping_dict=None, window_size=int):
+    if mapping_dict is None:
+        mapping_dict={}
     average_hydropathy_values = []
     for pos, aa in enumerate(pure_sequence):
         if pos > len(pure_sequence)-window_size:
