@@ -4,6 +4,11 @@ import plotly.graph_objects as go
 
 # create mapping_dict from csv-file with aap
 def create_mapping_dict(csv_file=""):
+    """
+    creates a dict that maps aa-1-letter-code to corresponding hydropathy index
+    :param csv_file: string with path for csv_file that contains aa properties
+    :return: dict that contains aa name as key and hydropathy as value
+    """
     aap_df = pd.read_csv(csv_file)
     mapping_dict = {}
     for aa in range(len(aap_df.index)):
@@ -15,6 +20,11 @@ def create_mapping_dict(csv_file=""):
 
 # extract sequence from fasta as string
 def extract_sequence(fasta):
+    """
+    extracts pure sequence from fastafile
+    :param fasta: fasta file that contains sequence
+    :return: pure sequence as string (one line, without header)
+    """
     with open(fasta) as genseq_fasta:
         pure_sequence = ""
         for row in genseq_fasta:
@@ -25,6 +35,12 @@ def extract_sequence(fasta):
 
 # return hydropathy values according to sequence
 def give_hydropathy_value(pure_sequence="", mapping_dict=None):
+    """
+    turns sequence into hydropathy values
+    :param pure_sequence: sequence to be analysed as string
+    :param mapping_dict: dict that maps aa to corresponding hydropathy index
+    :return: list that contains hydropathy values of sequence
+    """
     if mapping_dict is None:
         mapping_dict={}
     hydropathy_values = []
@@ -35,6 +51,14 @@ def give_hydropathy_value(pure_sequence="", mapping_dict=None):
 
 # plot hydropathy list
 def plot_hydropathy(hydropathy_list=None, xvalues=None, title="", xtitle=""):
+    """
+    plots hydropathy values against given x values using plotly
+    :param hydropathy_list: list containing hydropathy indices
+    :param xvalues: list containing aa position
+    :param title: title of plot as string
+    :param xtitle: title of x-axis as string
+    :return: required plot
+    """
     if hydropathy_list is None:
         hydropathy_list = []
     if xvalues is None:
