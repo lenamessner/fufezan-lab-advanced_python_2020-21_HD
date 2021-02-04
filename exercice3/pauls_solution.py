@@ -16,16 +16,16 @@ def get_sequence(entry_identifier, protein_name):
     :return:
     seq: The sequence of the protein
     '''
-    url = 'https://www.uniprot.org/uniprot/' + entry_identifier + '.fasta?fil=reviewed:yes'
-    r = requests.get(url)
+    url = 'https://www.uniprot.org/uniprot/' + entry_identifier + '.fasta?fil=reviewed:yes'  # erstellt die URL anhand der ID
+    r = requests.get(url)  # erstellt das Objekt r vom type Response, daraus kriegt man Infos
     seq = ""
     seq_list = []
-    protein_csv = './data/' + protein_name + '.fasta'
+    protein_csv = './data/' + protein_name + '.fasta'  # definiert Namen des csv-files, das erstellt wird
 
-    with open(protein_csv, 'wb') as file:
-        file.write(r.content)
+    with open(protein_csv, 'wb') as file:  # w=write, b=binary, öffnet protein_csv-fie
+        file.write(r.content) # schreibt den Inhalt aus r in die Datei
         file.close()
-    with open(protein_csv) as file:
+    with open(protein_csv) as file:  # öffnet (das jetzt volle) protein_csv-file
         file_dict = csv.reader(file, delimiter="\n")
         for line in file_dict:
             if ">" not in line[0]:
