@@ -2,6 +2,27 @@ import pandas as pd
 import plotly.graph_objects as go
 
 
+# create mapping_dict from csv-file with aap
+def create_mapping_dict(csv_file=""):
+    aap_df = pd.read_csv(csv_file)
+    mapping_dict = {}
+    for aa in range(len(aap_df.index)):
+        for hydroind in range(len(aap_df.index)):
+            mapping_dict[str(aap_df.loc[aa, '1-letter code'])] = aap_df.loc[
+                aa, 'hydropathy index (Kyte-Doolittle method)']
+    return mapping_dict
+
+
+# extract sequence from fasta as string
+def extract_sequence(fasta):
+    with open(fasta) as genseq_fasta:
+        pure_sequence = ""
+        for row in genseq_fasta:
+            if not row[0] == ">":
+                pure_sequence += row.replace("\n", "")
+    return pure_sequence
+
+
 # return hydropathy values according to sequence
 def give_hydropathy_value(pure_sequence="", mapping_dict=None):
     if mapping_dict is None:
@@ -86,24 +107,13 @@ def give_sliding_hydropathy_value(pure_sequence="", mapping_dict=None, window_si
 if __name__ == '__main__':
     aap = "../data/amino_acid_properties.csv"
 
-    genseq = "GP183_human.fasta"
+    genseq_fasta = "GP183_human.fasta"
 
-    # create mapping_dict from csv-file with aap
-    aap_df = pd.read_csv(aap)
-    mapping_dict = {}
-    for aa in range(len(aap_df.index)):
-        for hydroind in range(len(aap_df.index)):
-            mapping_dict[str(aap_df.loc[aa, '1-letter code'])] = aap_df.loc[
-                aa, 'hydropathy index (Kyte-Doolittle method)']
-    # print(mapping_dict)
+    mapping_dict = create_mapping_dict(aap)
+    print(mapping_dict)
 
-    # extract sequence from fasta as string
-    with open(genseq) as genseq_fasta:
-        pure_sequence = ""
-        for row in genseq_fasta:
-            if not row[0] == ">":
-                pure_sequence += row.replace("\n", "")
-    # print(pure_sequence)
+    pure_sequence = extract_sequence(genseq_fasta)
+    print(pure_sequence)
 
     xvalues=[]
     for pos in range(len(pure_sequence)):
