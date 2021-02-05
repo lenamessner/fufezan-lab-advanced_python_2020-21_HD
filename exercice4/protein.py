@@ -20,7 +20,7 @@ class Protein:
         self.lookup = lookup
         self.sequence = None
 
-    def get_data(self, id=""):
+    def get_data(self):
         """
         pulls fasta from uniprot using the id, then extracts sequence
         Args:
@@ -31,9 +31,9 @@ class Protein:
 
         """
 
-        url = f"https://www.uniprot.org/uniprot/{id}.fasta?fil=reviewed:yes"
+        url = f"https://www.uniprot.org/uniprot/{self.id}.fasta?fil=reviewed:yes"
         r = requests.get(url)
-        protein_csv = f"{id}.fasta"
+        protein_csv = f"{self.id}.fasta"
         with open(protein_csv, 'wb') as fasta:
             fasta.write(r.content)
         with open(protein_csv) as genseq_fasta:
@@ -157,7 +157,7 @@ if __name__ == '__main__':
     lookup_dict = get_lookup_dict(aap_df)
     print(lookup_dict)
     GPCR183 = Protein(id="P32249", lookup=lookup_dict)
-    GPCR183.sequence = GPCR183.get_data(GPCR183.id)
+    GPCR183.sequence = GPCR183.get_data()
     hydropathy_values = GPCR183.map("hydropathy index", 10)
     residue_weight = GPCR183.map("Residue Weight", 5)
     print(residue_weight)
