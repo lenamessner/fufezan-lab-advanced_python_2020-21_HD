@@ -16,7 +16,7 @@ class Protein:
         pulls fasta from uniprot using the id, then extracts sequence
         :param id: id of the protein
         :return:
-        sequence: sequence of the protein as string
+            sequence: sequence of the protein as string
         """
         url = f"https://www.uniprot.org/uniprot/{id}.fasta?fil=reviewed:yes"
         r = requests.get(url)
@@ -36,7 +36,7 @@ class Protein:
         :param window_size: size of sliding window as int
         :param which_lookup: string, which aa property should be looked at
         :return:
-        requested_values: list of aa properties according to sequence
+            requested_values: list of aa properties according to sequence
         """
         requested_values_average = []
         for pos, aa in enumerate(self.sequence):
@@ -112,7 +112,7 @@ def get_lookup_dict(aap_df):
     """
     :param aap_df: panda df with aa properties
     :return:
-    lookup_dict: dict that contains properties as first keys, then aa as second key, then corresponding values
+        lookup_dict: dict that contains properties as first keys, then aa as second key, then corresponding values
     """
     lookup_dict = {}
     for property in aap_df.columns:
@@ -120,7 +120,6 @@ def get_lookup_dict(aap_df):
         for aa in range(len(aap_df.index)):
             lookup_dict[property][str(aap_df.loc[aa, '1-letter code'])] = aap_df.loc[aa, property]
     return lookup_dict
-
 
 
 if __name__ == '__main__':
@@ -141,4 +140,3 @@ if __name__ == '__main__':
                 title="hydropathy values of GPCR183 with window size 10")
     plot_values(residue_weight, seq=GPCR183.sequence,
                 title="residue values of GPCR183 with window size 3")
-
