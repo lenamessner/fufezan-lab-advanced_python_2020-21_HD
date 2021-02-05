@@ -4,9 +4,18 @@ import plotly.graph_objects as go
 
 
 class Protein:
+    """
+    class representing proteins
+    """
 
     def __init__(self, id, lookup):
-        # lookup: {"hydropathy": {"A": }} also dict mit dict als values
+        """
+        initializing instances for the Protein class
+        Args:
+            id: id of the protein
+            lookup: dict containing properties of the aa e.g.{"hydropathy": {"A": }}
+        """
+
         self.id = id
         self.lookup = lookup
         self.sequence = None
