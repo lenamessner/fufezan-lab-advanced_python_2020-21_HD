@@ -129,6 +129,7 @@ def plot_values(value_list=None, seq="", title=""):
     }
     fig = go.Figure(data=data, layout=layout)
     fig.show()
+    return fig
 
 def get_lookup_dict(aap_df):
     """
