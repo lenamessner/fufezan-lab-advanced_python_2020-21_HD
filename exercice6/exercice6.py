@@ -72,9 +72,23 @@ coffee_clean.columns = ["Country of Origin", "Producer", "Processing Method"]
 
 producer_counts = coffee_clean["Producer"].value_counts()
 origin_counts = coffee_clean["Country of Origin"].value_counts()
+list_of_countries = coffee_clean["Country of Origin"].dropna().unique()
 method_counts = coffee_clean["Processing Method"].value_counts()
 
 # remove outliers
+
+# idea of Lotte
+median = float(origin_counts.median())
+yvalues_amend = []
+for country in list_of_countries:       # country in list of countries
+    if origin_counts.loc[country] > origin_counts.quantile(.9):   # larger than 9th quantile
+        yvalues_amend.append(median)
+    elif origin_counts.loc[country] < origin_counts.quantile(.1):     # smaller than 1st quantile
+        yvalues_amend.append(median)
+    else:
+        yvalues_amend.append(origin_counts.loc[country])
+print(yvalues_amend)
+
 # countries of origin < 10
 
 # producers with value 1
