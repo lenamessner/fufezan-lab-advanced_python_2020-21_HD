@@ -99,3 +99,53 @@ def test_plot_values():
         }
     }
     assert fig == go.Figure(data=data, layout=layout)
+
+def test_plot_values_2():
+    fig = ep.plot_values(seq="ACEGCEE", title="test")
+    data = [
+        go.Bar(
+            x=[0, 1, 2, 3, 4, 5, 6],
+            y=[],
+            marker_color="rgba(168, 0, 0, 1)",
+        )
+    ]
+
+    layout = {
+        "title": {
+            "text": "test",
+            "font_size": 30,
+        },
+        "plot_bgcolor": "rgba(0, 0, 0, 0.1)",  # Hintergrundfarbe
+        "xaxis":{
+            "color": "rgba(0, 0, 0, 1)",
+            "title": {
+                "text": "starting position of sliding window",
+                "font_size": 20,
+                "font_family": "Courier"
+            },
+            "showline": True,
+            "linewidth": 1,
+            "linecolor": "black",
+            "mirror": False
+        },
+        "yaxis": {
+            "showgrid": True,
+            "gridwidth": 1,
+            "gridcolor": "rgba(0, 0, 0, 0.2)",
+            "color": "rgba(0,0,0,1)",
+            "ticks": "outside",
+            "title": {
+                "text": "hydopathy",
+                "font_size": 20,
+                "font_family": "Courier",
+            },
+            "showline": True,
+            "linewidth": 1,
+            "linecolor": "black",
+            "mirror": True,  # sagt ob rechts auch ein Strich ist
+        }
+    }
+    assert fig == go.Figure(data=data, layout=layout)
+
+
+# pytest --cov-report html --cov=exercice4 tests/
