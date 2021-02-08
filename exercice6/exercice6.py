@@ -10,64 +10,64 @@ coffee_clean = coffee[["Country.of.Origin", "Producer", "Processing.Method"]]
 coffee_clean.columns = ["Country of Origin", "Producer", "Processing Method"]
 
 # plot histograms of the columns
-# for column in coffee_clean.columns:
-#     country_names = coffee_clean[column].dropna().unique()
-#     print(country_names)
-#
-#     value_counts = coffee_clean[column].value_counts()
-#     print(value_counts)  # is a pandas series
-#
-#     yvalues = []
-#     for country in country_names:
-#         yvalues.append(value_counts.loc[country])
-#     print(yvalues)
-#
-#     data = [
-#             go.Bar(
-#                 x=country_names,
-#                 y=yvalues,
-#                 marker_color="rgba(168, 0, 0, 1)",
-#             )
-#         ]
-#
-#     layout = {
-#         "title": {
-#             "text": f"Histogram of {column}",
-#             "font_size": 30,
-#         },
-#         "plot_bgcolor": "rgba(0, 0, 0, 0.1)",  # Hintergrundfarbe
-#         "xaxis":{
-#             "color": "rgba(0, 0, 0, 1)",
-#             "title": {
-#                 "text": column,
-#                 "font_size": 20,
-#                 "font_family": "Courier"
-#             },
-#             "showline": True,
-#             "linewidth": 1,
-#             "linecolor": "black",
-#             "mirror": False
-#         },
-#         "yaxis": {
-#             "showgrid": True,
-#             "gridwidth": 1,
-#             "gridcolor": "rgba(0, 0, 0, 0.2)",
-#             "color": "rgba(0,0,0,1)",
-#             "ticks": "outside",
-#             #"tickvals": [1, 5, 10],
-#             "title": {
-#                 "text": "count",
-#                 "font_size": 20,
-#                 "font_family": "Courier",
-#             },
-#             "showline": True,
-#             "linewidth": 1,
-#             "linecolor": "black",
-#             "mirror": True,  # sagt ob rechts auch ein Strich ist
-#             # "type": "log"
-#         }
-#     }
-#     fig = go.Figure(data=data, layout=layout)
+for column in coffee_clean.columns:
+    country_names = coffee_clean[column].dropna().unique()
+    print(country_names)
+
+    value_counts = coffee_clean[column].value_counts()
+    print(value_counts)  # is a pandas series
+
+    yvalues = []
+    for country in country_names:
+        yvalues.append(value_counts.loc[country])
+    print(yvalues)
+
+    data = [
+            go.Bar(
+                x=country_names,
+                y=yvalues,
+                marker_color="rgba(168, 0, 0, 1)",
+            )
+        ]
+
+    layout = {
+        "title": {
+            "text": f"Histogram of {column}",
+            "font_size": 30,
+        },
+        "plot_bgcolor": "rgba(0, 0, 0, 0.1)",  # Hintergrundfarbe
+        "xaxis":{
+            "color": "rgba(0, 0, 0, 1)",
+            "title": {
+                "text": column,
+                "font_size": 20,
+                "font_family": "Courier"
+            },
+            "showline": True,
+            "linewidth": 1,
+            "linecolor": "black",
+            "mirror": False
+        },
+        "yaxis": {
+            "showgrid": True,
+            "gridwidth": 1,
+            "gridcolor": "rgba(0, 0, 0, 0.2)",
+            "color": "rgba(0,0,0,1)",
+            "ticks": "outside",
+            #"tickvals": [1, 5, 10],
+            "title": {
+                "text": "count",
+                "font_size": 20,
+                "font_family": "Courier",
+            },
+            "showline": True,
+            "linewidth": 1,
+            "linecolor": "black",
+            "mirror": True,  # sagt ob rechts auch ein Strich ist
+            # "type": "log"
+        }
+    }
+    fig = go.Figure(data=data, layout=layout)
 #     fig.show()
 
 producer_counts = coffee_clean["Producer"].value_counts()
