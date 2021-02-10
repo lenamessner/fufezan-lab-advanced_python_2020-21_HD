@@ -41,6 +41,8 @@ cdf["date"] = pd.to_datetime(cdf["date"])
 # add column deltaTime_since_start_of_recording
 start = cdf.loc[cdf["date"].idxmin(), "date"]  # findet kleinste Zeit und setzt sie als Start
 cdf['t_since_start'] = cdf['date'] - start  # erstellt neue Spalte mit Zeit seit Beginn
+for i in range(0, cdf.shape[0]):
+    cdf.loc[i, 'year'] = cdf.loc[i, 'date'].year
 
 # histograms for different columns or describe the df. Can you spot the inconsistency in the data? Fix it! :)
 description = cdf.describe()  # negative values as min in death, cases, 14d-incidence, dates in future
@@ -73,7 +75,7 @@ cdf_clean_sort = cdf_clean.sort_values("date")  # cdf_clean_sort hat au keine ne
 # x["inc_diff"] = x["14d-incidence"].diff()
 # x["inc_diff"].fillna(0, inplace=True)
 
-a = np.empty((0, 3))
+a = np.empty((0, 4))
 for continent, cont_grp in cdf_clean_sort.groupby(["continent"]):
     # print(continent)
     for country, country_grp in cont_grp.groupby(["countries"]):
@@ -81,10 +83,10 @@ for continent, cont_grp in cdf_clean_sort.groupby(["continent"]):
         diffs = country_grp["14d-incidence"].diff().fillna(0)
         min_dif = min(diffs)
         max_dif = max(diffs)
-        a = np.append(a, [[country, min_dif, max_dif]], axis = 0)
+        a = np.append(a, [[continent, country, min_dif, max_dif]], axis=0)
 
 a_pandas = pd.DataFrame(a)
-a_pandas.columns=["country", "min_difs", "max_difs"]
+a_pandas.columns=["continent", "country", "min_difs", "max_difs"]
 a_pandas["min_difs"] = pd.to_numeric(a_pandas["min_difs"])
 a_pandas["max_difs"] = pd.to_numeric(a_pandas["max_difs"])
 country_lowest_diff = a_pandas.loc[a_pandas["min_difs"].idxmin(), "country"]
@@ -94,6 +96,17 @@ country_highest_diff = a_pandas.loc[a_pandas["max_difs"].idxmax(), "country"]
 max_dif_value = a_pandas["max_difs"].max()
 print(f"The country with the most drastic increase of the 14d-incidence is: {country_highest_diff} (Value: {max_dif_value})")
 
+final = np.empty((0, 5))
+for continent, grp_continent in a_pandas.groupby("continent"):
+    index_min = grp_continent["min_difs"].idxmin()
+    index_max = grp_continent["max_difs"].idxmax()
+    final = np.append(final, [[continent,
+                              a_pandas.loc[index_min, "country"],
+                              a_pandas.loc[index_min, "min_difs"],
+                              a_pandas.loc[index_max, "country"],
+                              a_pandas.loc[index_max, "max_difs"]]], axis = 0)
+
+final_pandas = pd.DataFrame(final)
 
 # plotting
 # data = [
