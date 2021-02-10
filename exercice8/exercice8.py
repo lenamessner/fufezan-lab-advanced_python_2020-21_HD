@@ -25,10 +25,29 @@ def msp_to_df(
         df (pd.DataFrame or np.array): spectrum information within defined parameters [n_spectra, n_features]
         seqs (pd.DataFrame or np.array): sequences
     """
+    with open(input_file) as mspfile:
+        seqs = []
+        for row in mspfile:
+            if row[:6] == "Name: ":
+                seq_length = 0
+                for x in range(6, len(row)):
+                    if row[x] != "/":
+                        seq_length += 1
+                    else:
+                        break
+                print(seq_length)
+                if seq_length <= max_seq_len:
+                    seqs.append(row[6:6+seq_length])
+
     df = None
-    seqs = None
+    seqs = seqs
 
     return df, seqs
 
 
 # feature = m/z ratio
+
+if __name__ == '__main__':
+    input_file = "../data/cptac2_mouse_hcd_selected.msp"
+    result = msp_to_df(input_file)
+    print(result)
