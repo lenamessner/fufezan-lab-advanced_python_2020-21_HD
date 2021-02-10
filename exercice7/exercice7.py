@@ -42,7 +42,7 @@ cdf["date"] = pd.to_datetime(cdf["date"])
 start = cdf.loc[cdf["date"].idxmin(), "date"]  # findet kleinste Zeit und setzt sie als Start
 cdf['t_since_start'] = cdf['date'] - start  # erstellt neue Spalte mit Zeit seit Beginn
 for i in range(0, cdf.shape[0]):
-    cdf.loc[i, 'year'] = cdf.loc[i, 'date'].year
+    cdf.loc[i, 'year'] = cdf.loc[i, 'date'].year  # fügt neue Spalte fürs Jahr dazu
 
 # histograms for different columns or describe the df. Can you spot the inconsistency in the data? Fix it! :)
 description = cdf.describe()  # negative values as min in death, cases, 14d-incidence, dates in future
