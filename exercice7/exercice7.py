@@ -225,18 +225,61 @@ def give_deltainc_peryear(cdf_clean_sort):
         print(f"In {year}, the country with the most drastic increase of the 14d-incidence is: {country_highest_diff} (Value: {max_dif_value})")
 
 
-# plotting
-# data = [
-#     go.Bar(
-#         x=country_names,
-#         y=yvalues,
-#         marker_color="rgba(168, 0, 0, 1)",
-#     )
-# ]
-# fig = go.Figure(data=data)
-# fig.show()
+def get_values_for_plotting(cdf_clean_sort):
+    Europe = cdf_clean_sort.groupby("continent").get_group("Europe")
+    xvalues = pd.DataFrame()
+    yvalues = pd.DataFrame()
+    for country, grp_country in Europe.groupby("countries"):
+        for i in range(grp_country.shape[0]):
+            date = grp_country.iloc[i, 0]
+            incidence = grp_country.iloc[i, 9]
+            xvalues.loc[i, country] = date
+            yvalues.loc[i, country] = incidence
+    return xvalues, yvalues
+
+
+def plot_values(xvalues, yvalues):
+    """
+    plots given x and y values as lineplot
+    Args:
+        xvalues: list of dates
+        yvalues: list of corresponding 14d-incidence
+
+    Returns:
+
+    """
+    layout = {
+        "title": {
+            "text": f"14d-incidence in European Countries",
+            "font_size": 30,
+        },
+        "xaxis": {
+            "title": {
+                "text": "date",
+                "font_size": 20,
+                "font_family": "Courier"
+            }
+        },
+        "yaxis": {
+           "title": {
+                "text": "14d-incidence",
+                "font_size": 20,
+                "font_family": "Courier",
+            }
+        }
+    }
+    fig = go.Figure(layout=layout)
+    for country in xvalues.columns:
+        fig.add_trace(go.Scatter(x=xvalues[country],
+                                 y=yvalues[country],
+                                 name=country))
+    fig.show()
+
 
 if __name__ == '__main__':
-    print(give_deltainc_percontinent(cdf_clean_sort))
-    print(give_deltainc_percontinent_andyear(cdf_clean_sort))
-    print(give_deltainc_peryear(cdf_clean_sort))
+    # print(give_deltainc_percontinent(cdf_clean_sort))
+    # print(give_deltainc_percontinent_andyear(cdf_clean_sort))
+    # print(give_deltainc_peryear(cdf_clean_sort))
+    xvalues = get_values_for_plotting(cdf_clean_sort)[0]
+    yvalues = get_values_for_plotting(cdf_clean_sort)[1]
+    plot_values(xvalues, yvalues)
