@@ -35,7 +35,7 @@ print(cdf.info())  # date als object, 14d-incidence as object
 
 # change wrong types
 cdf["14d-incidence"] = pd.to_numeric(cdf["14d-incidence"])
-cdf["date"] = pd.to_datetime(cdf["date"])
+cdf["date"] = pd.to_datetime(cdf["date"], format='%d/%m/%Y', errors='raise')  # format muss angegeben werden, weil er sonst random
 # print(cdf['date'].dt.day.head())  # sagt die Tage der ersten fünf Zeilen
 
 # add column deltaTime_since_start_of_recording
