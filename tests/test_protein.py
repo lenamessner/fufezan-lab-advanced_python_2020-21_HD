@@ -1,4 +1,4 @@
-import exercice4.protein as ep
+import exercise4.protein as ep
 import pandas as pd
 import plotly.graph_objects as go
 
@@ -148,4 +148,4 @@ def test_plot_values_2():
     assert fig == go.Figure(data=data, layout=layout)
 
 
-# pytest --cov-report html --cov=exercice4 tests/
+# pytest --cov-report html --cov=exercise4 tests/
