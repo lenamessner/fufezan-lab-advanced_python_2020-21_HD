@@ -75,7 +75,7 @@ origin_counts = coffee_clean["Country of Origin"].value_counts()
 list_of_countries = coffee_clean["Country of Origin"].dropna().unique()
 method_counts = coffee_clean["Processing Method"].value_counts()
 
-# remove outliers
+# remove outliers  --> AUFGABE WURDE KOMPLETT FALSCH VERSTANDEN!!!!!!!!!
 
 # idea of Lotte
 median = float(origin_counts.median())
@@ -100,8 +100,6 @@ for name in x:
 # print(coffee_clean["Producer"].value_counts())  # geht nur no bis 2 -> alle mit Producer = 1 ist weg!
 
 # processing method < 100
-
-
 
 # identify
 # Which countries have more than 10 and less than 30 entries?
