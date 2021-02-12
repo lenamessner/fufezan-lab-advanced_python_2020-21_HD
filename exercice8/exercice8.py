@@ -4,7 +4,7 @@ import timeit
 
 
 def msp_to_df(
-        input_file,
+        input_file="../data/cptac2_mouse_hcd_selected.msp",
         max_seq_len=30,
         min_ce=36,
         max_ce=40,
@@ -83,3 +83,4 @@ if __name__ == '__main__':
     result = msp_to_df(input_file)
     print("dataframe= \n", result[0].head())
     print("seqs: \n", result[1].head())
+    print(timeit.timeit(msp_to_df, number=1))
