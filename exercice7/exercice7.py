@@ -35,7 +35,8 @@ print(cdf.info())  # date als object, 14d-incidence as object
 
 # change wrong types
 cdf["14d-incidence"] = pd.to_numeric(cdf["14d-incidence"])
-cdf["date"] = pd.to_datetime(cdf["date"], format='%d/%m/%Y', errors='raise')  # format muss angegeben werden, weil er sonst random
+cdf["date"] = pd.to_datetime(cdf["date"], format='%d/%m/%Y',
+                             errors='raise')  # format muss angegeben werden, weil er sonst random
 # print(cdf['date'].dt.day.head())  # sagt die Tage der ersten fünf Zeilen
 
 # add column deltaTime_since_start_of_recording
@@ -219,10 +220,12 @@ def give_deltainc_peryear(cdf_clean_sort):
         country_lowest_diff = year_grp2.loc[year_grp2["min_value"].idxmin(), "min_country"]
         min_dif_value = year_grp2.loc[year_grp2["min_value"].idxmin(), "min_value"]
         year = int(year)
-        print(f"In {year}, the country with the most drastic decrease of the 14d-incidence is: {country_lowest_diff} (value: {min_dif_value})")
+        print(
+            f"In {year}, the country with the most drastic decrease of the 14d-incidence is: {country_lowest_diff} (value: {min_dif_value})")
         country_highest_diff = year_grp2.loc[year_grp2["max_value"].idxmax(), "max_country"]
         max_dif_value = year_grp2["max_value"].max()
-        print(f"In {year}, the country with the most drastic increase of the 14d-incidence is: {country_highest_diff} (Value: {max_dif_value})")
+        print(
+            f"In {year}, the country with the most drastic increase of the 14d-incidence is: {country_highest_diff} (Value: {max_dif_value})")
 
 
 def get_values_for_plotting(cdf_clean_sort):
@@ -261,7 +264,7 @@ def plot_values(xvalues, yvalues):
             }
         },
         "yaxis": {
-           "title": {
+            "title": {
                 "text": "14d-incidence",
                 "font_size": 20,
                 "font_family": "Courier",
@@ -276,10 +279,23 @@ def plot_values(xvalues, yvalues):
     fig.show()
 
 
+# Create a radial plot of death rate / 100000 people (see popData2019), where one year completes a circle,
+# i.e. 360˚. Visualize the recorded years for Italy, Germany, Sweden and Greece. Hint you might need to turn the
+# dateTime into day within the year (%j) and adjust 365 to 360 degrees.
+
+# deaths/100.000 people = (deaths/pop)*100.000
+cdf_clean_sort["death_perpeople"] = (cdf_clean_sort["deaths_weekly"] / cdf_clean_sort["pop_data_2019"]) * 100000
+# print(cdf)
+
+
+
 if __name__ == '__main__':
-    # print(give_deltainc_percontinent(cdf_clean_sort))
-    # print(give_deltainc_percontinent_andyear(cdf_clean_sort))
-    # print(give_deltainc_peryear(cdf_clean_sort))
+    give_deltainc_percontinent(cdf_clean_sort)
+    give_deltainc_percontinent_andyear(cdf_clean_sort)
+    give_deltainc_peryear(cdf_clean_sort)
+    final_pandas = give_deltainc_percontinent_andyear(cdf_clean_sort)
+    print(final_pandas)
     xvalues = get_values_for_plotting(cdf_clean_sort)[0]
     yvalues = get_values_for_plotting(cdf_clean_sort)[1]
-    plot_values(xvalues, yvalues)
+    # plot_values(xvalues, yvalues)
+
