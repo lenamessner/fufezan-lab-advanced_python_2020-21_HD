@@ -33,7 +33,7 @@ def results_as_csv(ordered_dict=None, name_of_organism=""):
     """
     if ordered_dict is None:
         ordered_dict = {}
-    with open(f"results_exercice2/csv_{name_of_organism}_orderd.csv", "w") as output:
+    with open(f"results_exercise2/csv_{name_of_organism}_orderd.csv", "w") as output:
         csv_writer = csv.DictWriter(output, fieldnames=["aa", "count"], delimiter=",")
         csv_writer.writeheader()
         for key, value in ordered_dict.items():
@@ -68,11 +68,11 @@ def plot_results(ordered_dict=None, name_of_organism=""):
     plt.xlabel("amino acid")
     plt.title(f"Histogram of amino acids in {name_of_organism}")
     plt.show()
-    # plt.savefig("results_exercice2/hist_{name_of_organism}_messner_ordered.pdf")
+    # plt.savefig("results_exercise2/hist_{name_of_organism}_messner_ordered.pdf")
 
 
 if __name__ == '__main__':
-    dataset = "data_exercice2/uniprot-archae+AND+reviewed_yes+AND+Methanococcus+maripaludis.fasta"
+    dataset = "data_exercise2/uniprot-archae+AND+reviewed_yes+AND+Methanococcus+maripaludis.fasta"
     all_sequences = extract_sequence(dataset)
 
     counter_dict = dict(Counter(all_sequences))
