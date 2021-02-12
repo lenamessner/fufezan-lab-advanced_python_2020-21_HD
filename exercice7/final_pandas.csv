@@ -1,0 +1,11 @@
+,year,continent,min_country,min_value,max_country,max_value
+0,2020.0,Africa,Equatorial_Guinea,-129.06,Equatorial_Guinea,129.06
+1,2021.0,Africa,Eswatini,-153.99,Seychelles,227.13
+2,2020.0,America,Belize,-301.2700000000001,Aruba,504.18000000000006
+3,2021.0,America,"Bonaire, Saint Eustatius and Saba",-292.5,"Bonaire, Saint Eustatius and Saba",342.53
+4,2020.0,Asia,Israel,-294.99000000000007,Kyrgyzstan,208.11
+5,2021.0,Asia,Lebanon,-175.92000000000007,Israel,296.3699999999999
+6,2020.0,Europe,Holy_See,-1717.79,Holy_See,1717.79
+7,2021.0,Europe,Gibraltar,-1388.4700000000005,Gibraltar,895.9799999999996
+8,2020.0,Oceania,French_Polynesia,-523.1300000000001,French_Polynesia,455.44999999999993
+9,2021.0,Oceania,French_Polynesia,-112.79000000000002,French_Polynesia,44.76000000000002
