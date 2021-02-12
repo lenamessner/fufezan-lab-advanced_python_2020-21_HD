@@ -83,4 +83,4 @@ if __name__ == '__main__':
     result = msp_to_df(input_file)
     print("dataframe= \n", result[0].head())
     print("seqs: \n", result[1].head())
-    print(timeit.timeit(msp_to_df, number=1))
+    print("It takes the following amount of seconds to run the code 10 times: ", timeit.timeit(msp_to_df, number=10))
