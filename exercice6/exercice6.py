@@ -87,7 +87,7 @@ for country in list_of_countries:       # country in list of countries
         yvalues_amend.append(median)
     else:
         yvalues_amend.append(origin_counts.loc[country])
-print(yvalues_amend)
+# print(yvalues_amend)
 
 # countries of origin < 10
 
@@ -96,8 +96,8 @@ x = producer_counts[producer_counts == 1].index
 for name in x:
     print(name)
     coffee_clean = coffee_clean[coffee_clean.Producer != name]
-print(coffee_clean)
-print(coffee_clean["Producer"].value_counts())  # geht nur no bis 2 -> alle mit Producer = 1 ist weg!
+# print(coffee_clean)
+# print(coffee_clean["Producer"].value_counts())  # geht nur no bis 2 -> alle mit Producer = 1 ist weg!
 
 # processing method < 100
 
