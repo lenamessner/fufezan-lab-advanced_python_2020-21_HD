@@ -103,15 +103,12 @@ def give_deltainc_percontinent(cdf_clean_sort):
     a_pandas["min_difs"] = pd.to_numeric(a_pandas["min_difs"])
     a_pandas["max_difs"] = pd.to_numeric(a_pandas["max_difs"])
 
-    # to print country with highest/lowest increase worldwide, not sorted by year:
-    # country_lowest_diff = a_pandas.loc[a_pandas["min_difs"].idxmin(), "country"]
-    # min_dif_value = a_pandas["min_difs"].min()
-    # print(
-    #     f"The country with the most drastic decrease of the 14d-incidence is: {country_lowest_diff} (value: {min_dif_value})")
-    # country_highest_diff = a_pandas.loc[a_pandas["max_difs"].idxmax(), "country"]
-    # max_dif_value = a_pandas["max_difs"].max()
-    # print(
-    #     f"The country with the most drastic increase of the 14d-incidence is: {country_highest_diff} (Value: {max_dif_value})")
+    # to print country with highest/lowest increase worldwide, not sorted by year: country_lowest_diff =
+    # a_pandas.loc[a_pandas["min_difs"].idxmin(), "country"] min_dif_value = a_pandas["min_difs"].min() print( f"The
+    # country with the most drastic decrease of the 14d-incidence is: {country_lowest_diff} (value: {
+    # min_dif_value})") country_highest_diff = a_pandas.loc[a_pandas["max_difs"].idxmax(), "country"] max_dif_value =
+    # a_pandas["max_difs"].max() print( f"The country with the most drastic increase of the 14d-incidence is: {
+    # country_highest_diff} (Value: {max_dif_value})")
 
     final = np.empty((0, 5))
     for continent, grp_continent in a_pandas.groupby("continent"):
@@ -285,8 +282,40 @@ def plot_values(xvalues, yvalues):
 
 # deaths/100.000 people = (deaths/pop)*100.000
 cdf_clean_sort["death_perpeople"] = (cdf_clean_sort["deaths_weekly"] / cdf_clean_sort["pop_data_2019"]) * 100000
-# print(cdf)
+cdf_clean_sort["t_since_start"] = pd.to_numeric(cdf_clean_sort["t_since_start"].dt.days)
+cdf_clean_sort["t_percent"] = cdf_clean_sort["t_since_start"] / 365
+country_groups = cdf_clean_sort.groupby("countries")
 
+
+def plot_radial(list_of_countries):
+    fig = go.Figure()
+
+    for country in list_of_countries:
+        r_values = []
+        theta_values = []
+        current_country = country_groups.get_group(country)
+        # only keep rows for measurements within first year since start of measurement:
+        current_country_firstyear = current_country[current_country["t_since_start"] < 366]
+        for row in range(current_country_firstyear.shape[0]):
+            r_values.append(current_country_firstyear.iloc[row, 12])  # death weekly
+            theta_values.append(current_country_firstyear.iloc[row, 13] * 360)  # percent*grad
+
+        fig.add_trace(go.Scatterpolargl(r=r_values,
+                                        theta=theta_values,
+                                        name=country,
+                                        mode='markers'))
+
+    fig.update_layout(title={"text": "death rate per 100,000 people in the first year of measurements",
+                      "font": {"size": 20}}
+                      )
+    fig.update_layout(title_xref='paper')  # titel ned so weit links
+    fig.update_layout(legend_x=0.8)  # legende weiter links
+    fig.update_polars(radialaxis_title_text="death rate")
+    fig.update_polars(angularaxis_tickmode='array')
+    fig.update_polars(angularaxis_tickvals=[0, 41.425, 82.849, 124.274, 165.699, 207.123, 248.550, 289.973, 331.397])  # an den Stellen gibts ticks
+    fig.update_polars(angularaxis_ticktext=["0 weeks since start of measurements", 6, 12, 18, 24, 30, 36, 42, 48])  # Beschriftung für die ticks
+
+    fig.show()
 
 
 if __name__ == '__main__':
@@ -297,5 +326,6 @@ if __name__ == '__main__':
     print(final_pandas)
     xvalues = get_values_for_plotting(cdf_clean_sort)[0]
     yvalues = get_values_for_plotting(cdf_clean_sort)[1]
-    # plot_values(xvalues, yvalues)
-
+    plot_values(xvalues, yvalues)
+    plot_radial(["Greece", "Italy", "Sweden", "Germany"])
+    print("hi")
