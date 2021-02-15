@@ -288,6 +288,14 @@ country_groups = cdf_clean_sort.groupby("countries")
 
 
 def plot_radial(list_of_countries):
+    """
+    creates a radial plot showing the death rate per 100,000 people in selected countries as radial plot
+    Args:
+        list_of_countries: list of countries that should be plotted (countries as string)
+
+    Returns:
+
+    """
     fig = go.Figure()
 
     for country in list_of_countries:
@@ -297,7 +305,7 @@ def plot_radial(list_of_countries):
         # only keep rows for measurements within first year since start of measurement:
         current_country_firstyear = current_country[current_country["t_since_start"] < 366]
         for row in range(current_country_firstyear.shape[0]):
-            r_values.append(current_country_firstyear.iloc[row, 12])  # death weekly
+            r_values.append(current_country_firstyear.iloc[row, 12])  # death_perpeople
             theta_values.append(current_country_firstyear.iloc[row, 13] * 360)  # percent*grad
 
         fig.add_trace(go.Scatterpolargl(r=r_values,
