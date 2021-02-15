@@ -66,18 +66,6 @@ cdf_clean = cdf_clean[mask_date]  # cdf_clean hat keine neuen Indices! Indices w
 cdf_clean_sort = cdf_clean.sort_values("date")  # cdf_clean_sort hat au keine neuen Indices! Indices wie bei cdf!
 
 
-# erster Versuch
-# # group by continents and countries
-# grouped = cdf_clean_sort.groupby(["continent", "countries"])
-# grouped["14d-incidence"].idxmax()  # gibt: continent->country->idx aus cdf für maximale 14d-incidence aus dem Land
-# # calculate difference
-#
-# x = grouped.get_group(("Africa", "Algeria"))
-# # Daten nach Datum sortieren, dann Differenz zu vorherigem Eintrag pd[col].diff() dann noch nan=0
-# x["inc_diff"] = x["14d-incidence"].diff()
-# x["inc_diff"].fillna(0, inplace=True)
-
-
 def give_deltainc_percontinent(cdf_clean_sort):
     """
 
