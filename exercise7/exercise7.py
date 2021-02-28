@@ -222,7 +222,7 @@ def get_values_for_plotting(cdf_clean_sort):
     for country, grp_country in Europe.groupby("countries"):
         for i in range(grp_country.shape[0]):
             date = grp_country.iloc[i, 0]
-            incidence = grp_country.iloc[i, 9]
+            incidence = grp_country.iloc[i, 11]  # new df requires column 11 instead of 9
             xvalues.loc[i, country] = date
             yvalues.loc[i, country] = incidence
     return xvalues, yvalues
