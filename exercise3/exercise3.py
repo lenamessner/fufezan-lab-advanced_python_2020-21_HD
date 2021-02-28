@@ -67,7 +67,7 @@ def plot_hydropathy(hydropathy_list=None, xvalues=None, title="", xtitle=""):
         go.Bar(
             x=xvalues,
             y=hydropathy_list,
-            marker_color="rgba(168, 0, 0, 1)",
+            marker_color="rgba(33, 186, 158, 1)",
         )
     ]
 
@@ -148,12 +148,16 @@ if __name__ == '__main__':
     print(hydropathy_values)
     plot_hydropathy(hydropathy_values, xvalues, "Hydropathy Index of Amino Acids in GPCR 183", "position of amino acid")
 
-    sliding_list_10 = give_sliding_hydropathy_value(pure_sequence, mapping_dict, 10)
-    print(sliding_list_10)
-    plot_hydropathy(sliding_list_10, xvalues, "Average Hydropathy Index in GPCR 183 with Sliding Window Size 10",
-                    "starting position of sliding window")
+    # sliding_list_10 = give_sliding_hydropathy_value(pure_sequence, mapping_dict, 10)
+    # print(sliding_list_10)
+    # plot_hydropathy(sliding_list_10, xvalues, "Average Hydropathy Index in GPCR 183 with Sliding Window Size 10",
+    #                 "starting position of sliding window")
 
-    sliding_list_5 = give_sliding_hydropathy_value(pure_sequence, mapping_dict, 5)
-    plot_hydropathy(sliding_list_5, xvalues, "Average Hydropathy Index in GPCR 183 with Sliding Window Size 5",
+    # sliding_list_5 = give_sliding_hydropathy_value(pure_sequence, mapping_dict, 5)
+    # plot_hydropathy(sliding_list_5, xvalues, "Average Hydropathy Index in GPCR 183 with Sliding Window Size 5",
+    #                 "starting positon of sliding window")
+
+    sliding_list_10 = give_sliding_hydropathy_value(pure_sequence, mapping_dict, 10)
+    plot_hydropathy(sliding_list_10, xvalues, "Average Hydropathy Index in GPCR 183 with Sliding Window Size 10",
                     "starting positon of sliding window")
 
