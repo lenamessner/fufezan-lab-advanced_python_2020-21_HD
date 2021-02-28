@@ -17,11 +17,13 @@ cdf.rename(
     columns={
         "dateRep": "date",
         "countriesAndTerritories": "countries",
+        "cases": "cases_weekly",
+        "deaths": "deaths_weekly",
         "geoId": "geo_id",
         "countryterritoryCode": "country_code",
         "popData2019": "pop_data_2019",
         "continentExp": "continent",
-        "notification_rate_per_100000_population_14-days": "14d-incidence"
+        "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000": "14d-incidence"
     },
     inplace=True
 )
