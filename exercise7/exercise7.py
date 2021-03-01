@@ -295,8 +295,8 @@ def plot_radial(list_of_countries):
         # only keep rows for measurements within first year since start of measurement:
         current_country_firstyear = current_country[current_country["t_since_start"] < 366]
         for row in range(current_country_firstyear.shape[0]):
-            r_values.append(current_country_firstyear.iloc[row, 12])  # death_perpeople
-            theta_values.append(current_country_firstyear.iloc[row, 13] * 360)  # percent*grad
+            r_values.append(current_country_firstyear.iloc[row, 13])  # death_perpeople
+            theta_values.append(current_country_firstyear.iloc[row, 14] * 360)  # percent*grad
 
         fig.add_trace(go.Scatterpolargl(r=r_values,
                                         theta=theta_values,
